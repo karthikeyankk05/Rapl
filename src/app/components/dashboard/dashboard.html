@@ -1,0 +1,192 @@
+<div class="dashboard">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h1>{{ isAdmin() ? 'Admin Learning Dashboard' : 'Learning Dashboard' }}</h1>
+      <p>
+        {{ isAdmin()
+          ? 'Overview of platform courses, student enrollments, and completion metrics.'
+          : 'Track your courses and learning progress.' }}
+      </p>
+    </div>
+
+    <div class="header-actions" *ngIf="isAdmin()">
+      <a routerLink="/rapl-genie" class="secondary-button">
+        RapL Genie
+      </a>
+      <a routerLink="/add-course" class="add-button">
+        + Add Course
+      </a>
+    </div>
+  </div>
+
+  <!-- Admin Metrics Section -->
+  <section class="stats" *ngIf="isAdmin()">
+    <div class="stat-card">
+      <span class="stat-label">Total Courses</span>
+      <strong>{{ totalCourses }}</strong>
+    </div>
+
+    <div class="stat-card highlight">
+      <span class="stat-label">Total Students</span>
+      <strong>{{ totalStudents() }}</strong>
+    </div>
+
+    <div class="stat-card highlight">
+      <span class="stat-label">Courses Completed by Students</span>
+      <strong>{{ totalStudentCompletions() }}</strong>
+    </div>
+
+    <div class="stat-card">
+      <span class="stat-label">Courses In Progress</span>
+      <strong>{{ inProgressCourses }}</strong>
+    </div>
+  </section>
+
+  <!-- Student Personal Metrics Section -->
+  <section class="stats" *ngIf="!isAdmin()">
+    <div class="stat-card">
+      <span class="stat-label">Total Courses</span>
+      <strong>{{ totalCourses }}</strong>
+    </div>
+
+    <div class="stat-card">
+      <span class="stat-label">Completed</span>
+      <strong>{{ completedCourses }}</strong>
+    </div>
+
+    <div class="stat-card">
+      <span class="stat-label">In Progress</span>
+      <strong>{{ inProgressCourses }}</strong>
+    </div>
+
+    <div class="stat-card">
+      <span class="stat-label">Not Started</span>
+      <strong>{{ notStartedCourses }}</strong>
+    </div>
+  </section>
+
+  <!-- Admin Quick Navigation Bar -->
+  <section class="admin-quick-bar" *ngIf="isAdmin()">
+    <div class="quick-bar-text">
+      <strong>Administrator Actions:</strong>
+      <span>Create new learning materials, review student rosters, or inspect RapL Genie knowledge items.</span>
+    </div>
+    <div class="quick-bar-links">
+      <a routerLink="/add-course" class="quick-link primary">+ Add Course</a>
+      <a routerLink="/courses" class="quick-link">All Courses ({{ totalCourses }})</a>
+      <a routerLink="/rapl-genie" class="quick-link">RapL Genie</a>
+    </div>
+  </section>
+
+  <!-- Admin: Enrolled Students & Completion Details Table -->
+  <section class="students-section" *ngIf="isAdmin()">
+    <div class="section-header">
+      <div>
+        <h2>Student Details & Course Progress</h2>
+        <p>Overview of active student enrollments and completed coursework</p>
+      </div>
+      <span class="count-badge">{{ totalStudents() }} Students Registered</span>
+    </div>
+
+    <div class="table-responsive">
+      <table class="students-table">
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Enrolled</th>
+            <th>Completed</th>
+            <th>In Progress</th>
+            <th>Active Course</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students()">
+            <td>
+              <div class="student-cell">
+                <span class="student-name">{{ student.name }}</span>
+                <span class="student-email">{{ student.email }}</span>
+              </div>
+            </td>
+            <td><strong>{{ student.enrolledCoursesCount }}</strong></td>
+            <td>
+              <span class="completion-pill">{{ student.completedCoursesCount }} completed</span>
+            </td>
+            <td>{{ student.inProgressCoursesCount }}</td>
+            <td class="course-cell">{{ student.recentCourse }}</td>
+            <td>
+              <span class="student-status" [class.completed]="student.status === 'Completed'">
+                {{ student.status }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Course Details & Management Section -->
+  <section class="courses-section">
+    <div class="section-header">
+      <div>
+        <h2>{{ isAdmin() ? 'Course Details & Management' : 'Recent Courses' }}</h2>
+        <p>{{ isAdmin() ? 'Course catalog status, lesson counts, and detail views' : 'Your current learning courses' }}</p>
+      </div>
+
+      <div class="section-header-right">
+        <a *ngIf="isAdmin()" routerLink="/add-course" class="table-add-link">+ Add Course</a>
+        <a routerLink="/courses" class="view-all">View all ({{ totalCourses }})</a>
+      </div>
+    </div>
+
+    <div class="course-list">
+      <div
+        class="course-row"
+        *ngFor="let course of courses | slice:0:4"
+      >
+        <div class="course-info">
+          <h3>{{ course.name }}</h3>
+          <p>{{ course.description }}</p>
+        </div>
+
+        <div class="course-meta">
+          <span
+            class="status"
+            [class.completed]="course.status === 'Completed'"
+            [class.in-progress]="course.status === 'In Progress'"
+            [class.not-started]="course.status === 'Not Started'"
+          >
+            {{ course.status }}
+          </span>
+
+          <span>{{ course.duration }} hrs</span>
+          <span>{{ course.lessons }} lessons</span>
+
+          <a
+            [routerLink]="['/courses', course.id]"
+            class="details-button"
+          >
+            View Details
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RapL Genie Ecosystem Reference Card -->
+  <section class="genie-banner">
+    <div class="genie-banner-content">
+      <div class="genie-banner-tag">RapL Genie</div>
+      <h3>Knowledge & Learning Support</h3>
+      <p>Need immediate answers or assistance with course topics? Access verified learning snippets and topic pathways.</p>
+    </div>
+    <div class="genie-banner-action">
+      <a routerLink="/rapl-genie" class="genie-banner-btn">
+        Explore RapL Genie →
+      </a>
+    </div>
+  </section>
+
+</div>

@@ -1,0 +1,90 @@
+<div class="details-page">
+
+  <a routerLink="/courses" class="back-link">
+    ← Back to Courses
+  </a>
+
+  <div *ngIf="course; else courseNotFound">
+
+    <div class="details-header">
+
+      <div>
+        <div class="status-row">
+          <span
+            class="status"
+            [class.completed]="course.status === 'Completed'"
+            [class.in-progress]="course.status === 'In Progress'"
+            [class.not-started]="course.status === 'Not Started'"
+          >
+            {{ course.status }}
+          </span>
+        </div>
+
+        <h1>{{ course.name }}</h1>
+
+        <p class="description">
+          {{ course.description }}
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="action-button"
+        *ngIf="course.status !== 'Completed'"
+        (click)="startCourse()"
+      >
+        {{ actionText }}
+      </button>
+
+    </div>
+
+    <section class="course-information">
+
+      <div class="info-item">
+        <span>Duration</span>
+        <strong>{{ course.duration }} hours</strong>
+      </div>
+
+      <div class="info-item">
+        <span>Lessons</span>
+        <strong>{{ course.lessons }}</strong>
+      </div>
+
+      <div class="info-item">
+        <span>Status</span>
+        <strong>{{ course.status }}</strong>
+      </div>
+
+    </section>
+
+    <section class="about-course">
+
+      <h2>About this course</h2>
+
+      <p>
+        This course contains {{ course.lessons }} lessons and has an
+        estimated duration of {{ course.duration }} hours.
+      </p>
+
+      <p>
+        Use the button above to start or continue your learning.
+      </p>
+
+    </section>
+
+  </div>
+
+  <ng-template #courseNotFound>
+
+    <div class="not-found">
+      <h2>Course not found</h2>
+      <p>The course you're looking for doesn't exist.</p>
+
+      <a routerLink="/courses" class="back-button">
+        Back to Courses
+      </a>
+    </div>
+
+  </ng-template>
+
+</div>

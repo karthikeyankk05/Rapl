@@ -1,0 +1,147 @@
+<div class="add-course-page">
+
+  <a routerLink="/courses" class="back-link">
+    ← Back to Courses
+  </a>
+
+  <div class="page-header">
+    <h1>Add Course</h1>
+    <p>Add a new course to the learning dashboard.</p>
+  </div>
+
+  <form
+    [formGroup]="courseForm"
+    (ngSubmit)="onSubmit()"
+    class="course-form"
+  >
+
+    <div class="form-group">
+      <label for="name">Course Name</label>
+
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="Enter course name"
+      />
+
+      <small
+        class="error"
+        *ngIf="name.invalid && (name.touched || submitted)"
+      >
+        Course name is required and must be at least 3 characters.
+      </small>
+    </div>
+
+
+    <div class="form-group">
+      <label for="description">Description</label>
+
+      <textarea
+        id="description"
+        rows="4"
+        formControlName="description"
+        placeholder="Enter a short course description"
+      ></textarea>
+
+      <small
+        class="error"
+        *ngIf="description.invalid && (description.touched || submitted)"
+      >
+        Description is required and must be at least 10 characters.
+      </small>
+    </div>
+
+
+    <div class="form-row">
+
+      <div class="form-group">
+        <label for="duration">Duration (hours)</label>
+
+        <input
+          id="duration"
+          type="number"
+          min="1"
+          formControlName="duration"
+        />
+
+        <small
+          class="error"
+          *ngIf="duration.invalid && (duration.touched || submitted)"
+        >
+          Duration must be at least 1 hour.
+        </small>
+      </div>
+
+
+      <div class="form-group">
+        <label for="lessons">Number of Lessons</label>
+
+        <input
+          id="lessons"
+          type="number"
+          min="1"
+          formControlName="lessons"
+        />
+
+        <small
+          class="error"
+          *ngIf="lessons.invalid && (lessons.touched || submitted)"
+        >
+          Lessons must be at least 1.
+        </small>
+      </div>
+
+    </div>
+
+
+    <div class="form-group">
+      <label for="status">Status</label>
+
+      <select
+        id="status"
+        formControlName="status"
+      >
+        <option value="Not Started">Not Started</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+
+      <small
+        class="error"
+        *ngIf="status.invalid && (status.touched || submitted)"
+      >
+        Please select a status.
+      </small>
+    </div>
+
+
+    <div class="form-actions">
+
+      <a
+        routerLink="/courses"
+        class="cancel-button"
+      >
+        Cancel
+      </a>
+
+      <button
+        type="button"
+        class="reset-button"
+        (click)="resetForm()"
+      >
+        Reset
+      </button>
+
+      <button
+        type="submit"
+        class="submit-button"
+      >
+        Add Course
+      </button>
+
+    </div>
+
+  </form>
+
+</div>

@@ -1,0 +1,192 @@
+.add-course-page {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: #4b5563;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back-link:hover {
+  color: #2563eb;
+}
+
+.page-header {
+  margin-bottom: 22px;
+}
+
+.page-header h1 {
+  margin: 0 0 6px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #222;
+}
+
+.page-header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Form */
+
+.course-form {
+  padding: 26px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 7px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 7px;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 11px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+
+  background: #fff;
+  color: #222;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  outline: none;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #2563eb;
+}
+
+.form-group input.ng-invalid.ng-touched,
+.form-group textarea.ng-invalid.ng-touched,
+.form-group select.ng-invalid.ng-touched {
+  border-color: #dc2626;
+}
+
+.error {
+  display: block;
+  margin-top: 6px;
+  color: #dc2626;
+  font-size: 12px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Buttons */
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+
+  padding-top: 6px;
+  margin-top: 8px;
+
+  border-top: 1px solid #e5e7eb;
+}
+
+.cancel-button,
+.reset-button,
+.submit-button {
+  height: 38px;
+  padding: 0 15px;
+
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.cancel-button {
+  display: inline-flex;
+  align-items: center;
+
+  color: #4b5563;
+  background: white;
+  border: 1px solid #d1d5db;
+}
+
+.cancel-button:hover {
+  background: #f9fafb;
+}
+
+.reset-button {
+  color: #4b5563;
+  background: white;
+  border: 1px solid #d1d5db;
+}
+
+.reset-button:hover {
+  background: #f9fafb;
+}
+
+.submit-button {
+  color: white;
+  background: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+.submit-button:hover {
+  background: #1d4ed8;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .course-form {
+    padding: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .cancel-button,
+  .reset-button,
+  .submit-button {
+    width: 100%;
+    justify-content: center;
+  }
+}

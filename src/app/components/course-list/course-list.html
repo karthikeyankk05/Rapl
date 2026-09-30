@@ -1,0 +1,117 @@
+<div class="courses-page">
+
+  <div class="page-header">
+    <div>
+      <h1>Courses</h1>
+      <p>Browse and manage your learning courses.</p>
+    </div>
+
+    <a *ngIf="isAdmin()" routerLink="/add-course" class="add-button">
+      + Add Course
+    </a>
+  </div>
+
+  <section class="course-panel">
+
+    <div class="filters">
+
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+        placeholder="Search courses..."
+      />
+
+      <select
+        [(ngModel)]="selectedStatus"
+        (change)="onStatusChange()"
+      >
+        <option value="All">All Status</option>
+        <option value="Completed">Completed</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Not Started">Not Started</option>
+      </select>
+
+      <button
+        type="button"
+        class="sort-button"
+        (click)="toggleSort()"
+      >
+        Name {{ sortAscending ? '↑' : '↓' }}
+      </button>
+
+      <button
+        type="button"
+        class="clear-button"
+        (click)="clearFilters()"
+      >
+        Clear
+      </button>
+
+    </div>
+
+    <div class="results-info">
+      {{ filteredCourses.length }}
+      {{ filteredCourses.length === 1 ? 'course' : 'courses' }}
+    </div>
+
+    <div class="course-list" *ngIf="filteredCourses.length > 0">
+
+      <div
+        class="course-row"
+        *ngFor="let course of filteredCourses"
+      >
+
+        <div class="course-info">
+          <h2>{{ course.name }}</h2>
+
+          <p>{{ course.description }}</p>
+        </div>
+
+        <div class="course-meta">
+
+          <span
+            class="status"
+            [class.completed]="course.status === 'Completed'"
+            [class.in-progress]="course.status === 'In Progress'"
+            [class.not-started]="course.status === 'Not Started'"
+          >
+            {{ course.status }}
+          </span>
+
+          <span>{{ course.duration }} hrs</span>
+
+          <span>{{ course.lessons }} lessons</span>
+
+          <a
+            [routerLink]="['/courses', course.id]"
+            class="details-button"
+          >
+            View Details
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div
+      class="empty-state"
+      *ngIf="filteredCourses.length === 0"
+    >
+      <h3>No courses found</h3>
+      <p>Try changing your search or filter.</p>
+
+      <button
+        type="button"
+        class="clear-button"
+        (click)="clearFilters()"
+      >
+        Clear Filters
+      </button>
+    </div>
+
+  </section>
+
+</div>
